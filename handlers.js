@@ -24,6 +24,7 @@ export const solver = async (reader, required, other) => {
       }
     }
   }
+  result.sort();
   return result;
 };
 
