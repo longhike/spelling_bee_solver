@@ -18,7 +18,7 @@ export const getLines = (path) =>
 export const solver = async (reader, required, other) => {
   const result = [];
   for await (const word of reader) {
-    if (word.length > 4) {
+    if (word.length > 3) {
       if (isValid(word, required, other)) {
         result.push(word);
       }
