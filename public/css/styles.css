@@ -1,0 +1,11 @@
+body {
+    text-align: center;
+}
+
+#loading-section {
+    display: none;
+}
+
+#result-section {
+    display: none;
+}
