@@ -8,8 +8,10 @@ export const getLines = (path) => readline.createInterface({
 export const solver = async (reader, required, other) => {
     const result = []
     for await (const word of reader) {
-      if (isValid(word, required, other)) {
-        result.push(word);
+      if (word.length > 4) {
+        if (isValid(word, required, other)) {
+          result.push(word);
+        }
       }
     }
     reader.close();
