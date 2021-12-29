@@ -1,28 +1,29 @@
 import * as readline from "readline";
 import * as fs from "fs";
 
-export const getLines = (path) => readline.createInterface({
-    input: fs.createReadStream(path)
+const isValid = (word, requiredLetter, otherLetters) => {
+  if (word.indexOf(requiredLetter) === -1) return false;
+  const combined = requiredLetter + otherLetters;
+  for (let i = 0; i < word.length; i++) {
+    if (combined.indexOf(word[i]) === -1) return false;
+  }
+  return true;
+};
+
+export const getLines = (path) =>
+  readline.createInterface({
+    input: fs.createReadStream(path),
   });
 
 export const solver = async (reader, required, other) => {
-    const result = []
-    for await (const word of reader) {
-      if (word.length > 4) {
-        if (isValid(word, required, other)) {
-          result.push(word);
-        }
+  const result = [];
+  for await (const word of reader) {
+    if (word.length > 4) {
+      if (isValid(word, required, other)) {
+        result.push(word);
       }
     }
-    reader.close();
-    return result;
-}
-  
-const isValid = (word, requiredLetter, requiredLetters) => {
-    if (word.indexOf(requiredLetter) === -1) return false;
-    const combined = requiredLetter + requiredLetters;
-    for (let i = 0; i < word.length; i++) {
-      if (combined.indexOf(word[i]) === -1) return false;
-    }
-    return true;
   }
+  return result;
+};
+

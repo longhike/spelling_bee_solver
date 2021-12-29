@@ -1,5 +1,17 @@
 body {
     text-align: center;
+    align-items: center;
+}
+
+button {
+    width: 80px;
+}
+
+input {
+    max-width: 60%;
+    min-width: 50%;
+    margin: auto;
+    text-align: center;
 }
 
 #loading-section {
