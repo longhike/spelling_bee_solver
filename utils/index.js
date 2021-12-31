@@ -10,12 +10,12 @@ const isValid = (word, requiredLetter, otherLetters) => {
   return true;
 };
 
-export const getLines = (path) =>
+const getLines = (path) =>
   readline.createInterface({
     input: fs.createReadStream(path),
   });
 
-export const solver = async (reader, required, other) => {
+const solver = async (reader, required, other) => {
   const result = [];
   for await (const word of reader) {
     if (word.length > 3) {
@@ -27,4 +27,9 @@ export const solver = async (reader, required, other) => {
   result.sort();
   return result;
 };
+
+export {
+  getLines,
+  solver
+}
 
