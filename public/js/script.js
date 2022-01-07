@@ -19,6 +19,18 @@ searchForm.addEventListener("submit", async (e) => {
   searchForm.reset();
 });
 
+document.addEventListener("click", async (e) => {
+  if (e.target.className === "word") {
+    const check = e.target.id.toLowerCase()
+    const def = await getDef(check);
+    if (def["response"]) {
+      alert("couldn't find that one, try googling!");
+    } else {
+      alert(makeDefinitionString(def));
+    }
+  }
+});
+
 function setResult(response) {
   const { result, required, others } = response;
   emptyResultTable();

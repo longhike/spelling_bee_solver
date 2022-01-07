@@ -1,17 +1,6 @@
-document.addEventListener("click", async (e) => {
-  if (e.target.className === "word") {
-    const def = await getDef(e.target.textContent);
-    if (def["response"]) {
-      alert("couldn't find that one, try googling!");
-    } else {
-      alert(makeDefinitionString(def));
-    }
-  }
-});
-
-function makeDefinitionString(def) {
+function makeDefinitionString(defObj) {
   let resStr = "";
-  def.def.forEach((d) => {
+  defObj.def.forEach((d) => {
     let curStr = "part of speech: " + d.partOfSpeech + "\n";
     d.definitions.forEach((def) => {
       curStr += def + "\n";
@@ -41,21 +30,22 @@ function unsetLoading() {
   resultSection.style.display = "block";
 }
 
+function populate(i, result) {
+  const len = result.length;
+  if (i < len) {
+    setTimeout(() => {
+      const holder = document.createElement("div");
+      holder.setAttribute("class", "word");
+      holder.setAttribute("id", result[i]);
+      holder.textContent = result[i];
+      resultTableBody.appendChild(holder);
+      populate(++i, result);
+    }, 10);
+  }
+}
+
 function populateTable(result) {
-    let i = 0;
-    while (i < result.length) {
-      const row = document.createElement("tr");
-      for (let j = 0; j < 5; j++) {
-        if (i < result.length) {
-            const col = document.createElement("td");
-            col.setAttribute("class", "word");
-            col.textContent = result[i];
-            row.appendChild(col);
-            i++;
-        }
-      }
-      resultTableBody.appendChild(row);
-    }
+  populate(0, result);
 }
 
 function emptyResultTable() {
